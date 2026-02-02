@@ -15,10 +15,7 @@ services:
     ports:
       - "8081:8069"
     volumes:
-      - ./odoo:/odoo
       - ./tutorials:/mnt/extra-addons
-      - ./odoo.conf:/etc/odoo/odoo.conf
-    command: odoo -c /etc/odoo/odoo.conf --dev=all
     environment:
       - HOST=db
       - USER=odoo
