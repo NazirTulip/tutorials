@@ -2,11 +2,11 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: postgres
       POSTGRES_USER: odoo
       POSTGRES_PASSWORD: odoo
+      POSTGRES_DB: postgres
     volumes:
-      - pgdata:/var/lib/postgresql/data   # 👈 ADD THIS
+      - pgdata:/var/lib/postgresql/data
 
   odoo:
     image: odoo:19
@@ -15,11 +15,14 @@ services:
     ports:
       - "8081:8069"
     volumes:
-      - ./:/mnt/extra-addons              # 👈 BETTER
+      - ./odoo:/odoo
+      - ./tutorials:/mnt/extra-addons
+      - ./odoo.conf:/etc/odoo/odoo.conf
+    command: odoo -c /etc/odoo/odoo.conf --dev=all
     environment:
       - HOST=db
       - USER=odoo
       - PASSWORD=odoo
 
 volumes:
-  pgdata:                                # 👈 ADD THIS
+  pgdata:
